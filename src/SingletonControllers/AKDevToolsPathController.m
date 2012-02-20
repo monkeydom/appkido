@@ -88,7 +88,7 @@
     [openPanel setResolvesAliases:YES];
     
     [openPanel
-         beginSheetForDirectory:[_devToolsPathField stringValue]
+         beginSheetForDirectory: @"/"
          file:nil
          types:nil
          modalForWindow:[_devToolsPathField window]
@@ -174,6 +174,11 @@
     if (returnCode == NSOKButton)
     {
         NSString *selectedDir = [[[panel URLs] lastObject] path];
+        selectedDir = [selectedDir stringByAppendingPathComponent: @"Xcode.app"];
+        selectedDir = [selectedDir stringByAppendingPathComponent: @"Contents"];
+        selectedDir = [selectedDir stringByAppendingPathComponent: @"Developer"];
+        
+        
         NSMutableArray *errorStrings = [NSMutableArray array];
 
         if ([AKDevTools looksLikeValidDevToolsPath:selectedDir errorStrings:errorStrings])

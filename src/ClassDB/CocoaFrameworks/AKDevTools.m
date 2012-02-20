@@ -125,8 +125,15 @@ static NSComparisonResult _versionSortFunction(id leftVersionString, id rightVer
         return NO;
     }
     
-    NSArray *expectedSubdirs = [self expectedSubdirsForDevToolsPath:devToolsPath];
-    NSEnumerator *expectedSubdirsEnum = [expectedSubdirs objectEnumerator];
+    NSEnumerator *expectedSubdirsEnum = [[NSArray arrayWithObjects:
+#if APPKIDO_FOR_IPHONE
+                                          @"Platforms/iPhoneOS.platform",
+                                          @"Platforms/iPhoneSimulator.platform",
+#else
+                                          @"Platforms/MacOSX.platform",
+#endif
+                                          @"Documentation",
+                                          nil] objectEnumerator];
     NSString *subdir;
     BOOL seemsOkay = YES;
     
